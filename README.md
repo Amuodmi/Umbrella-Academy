@@ -4,7 +4,6 @@
 
 - [Description](#description)
 - [Usage](#usage)
-- [Screenshots](#screenshots)
 - [Links](#links)
 - [Licenses](#licenses)
 
@@ -16,11 +15,6 @@ so that their company can comepete with other e-commerce companies.
 ## Usage
 
 Begin by running the mySQL shell in your terminal.  "mysql -u root -p" , and enter your password.  From there run:  "source db/schema.sql" . Open another terminal and run your seeds:  "npm run seed" . After that run your server:  "npm start" .
-## Screenshots 
-
-Home Page
-
-![image](https://user-images.githubusercontent.com/100370557/185267809-598686ee-f8c2-42f1-b377-a23cad5d238e.png)
 
 
 ## Links
