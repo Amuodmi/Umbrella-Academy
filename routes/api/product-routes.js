@@ -7,9 +7,10 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
+  console.log('=============================');
   Product.findAll({
     attributes: [
-      'id', 'product_name', 'price', 'stock','category_id'
+      'id', 'product_name', 'price', 'stock','category_id',
     ],
     order: [['category_id']],
     include: [
@@ -37,6 +38,7 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
+    attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
     order: [['category_id']],
     include: [
       {model: Category,
@@ -48,24 +50,14 @@ router.get('/:id', (req, res) => {
   }
     ]
   })
-  .then (productData => {
-    if(!productData) {
-      res.status(404).json({message: 'no Product found with this ID'});
-    };
-  })
-  .catch (c => {console.log(c); res.status(500).json(c)});
+  .then(productData => res.json(productData))
+  .catch (err => {console.log(err);
+  res.status(500).json(err)
+});
 });
 
 // create new product
 router.post('/', (req, res) => {
-  /* req.body should look like this...
-    {
-      product_name: "Basketball",
-      price: 200.00,
-      stock: 3,
-      tagIds: [1, 2, 3, 4]
-    }
-  */
   Product.create({
     product_name: req.body.product_name,
     price: req.body.price,
@@ -109,7 +101,11 @@ router.put('/:id', (req, res) => {
       // get list of current tag_ids
       const productTagIds = productTags.map(({ tag_id }) => tag_id);
       // create filtered list of new tag_ids
-      const newProductTags = req.body.tagIds
+      /**
+       * @type {Array<number>}    
+       */
+      let newProductTags = req.body.tagIds
+      newProductTags = newProductTags
         .filter((tag_id) => !productTagIds.includes(tag_id))
         .map((tag_id) => {
           return {
@@ -149,7 +145,10 @@ router.delete('/:id', (req, res) => {
     }
     res.json(productData);
   })
-  .catch(c => {console.log(c); res.status(500).json(c)});
+  .catch((err) => {
+    console.log(err);
+    res.status(400).json(err);
+});
 });
 
 module.exports = router;

@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
       id: req.params.id
     },
     include: [
-      {model: ProductTag}
+      {model: Product}
     ]
   })
   .then(tagData => {
@@ -51,7 +51,16 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
-  Tag.updateTag(req)
+  Tag.update(req)({
+    where: {
+      id: req.params.id,
+      attributes: ['id','tag_name'],
+    include: [
+      {model: Product,
+      attributes: ['id', 'product_name','price','stock','category_id']}
+    ]
+    }
+  })
   .then(tagData => {
     if(tagData) {
       res.json(tagData);

@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
   Category.findAll({
     include: [
       {model: Product,
-      attributes: ['id', 'product_name', 'price', 'stock']}
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
+      }
     ]
   })
   .then(categoryData => {
@@ -32,9 +33,10 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
+    
     include: [
       {model: Product,
-      attributes: ['id', 'product_name', 'price', 'stock']}
+         attributes: ['id', 'product_name', 'price', 'stock'],}
     ]
     })
     .then(categoryData => {
@@ -44,8 +46,11 @@ router.get('/:id', (req, res) => {
       };
       res.json(categoryData);
     })
-    .catch(c => {console.log(c); res.status(500).json(c)});
+    .catch(err => { 
+     console.log(err); 
+     res.status(500).json(err);
   });
+});
 
 router.post('/', (req, res) => {
   // create a new category
@@ -53,7 +58,7 @@ router.post('/', (req, res) => {
     category_name: req.body.category_name,
   })
   .then(categoryData => res.json(categoryData))
-  .catch(c => {console.log(c); res.status(500),json(c)});
+  .catch(err => {console.log(err); res.status(500),json(err)});
 });
 
 router.put('/:id', (req, res) => {
@@ -83,6 +88,7 @@ router.delete('/:id', (req, res) => {
     where: {
       id: req.params.id
     }
+  })
     .then(categoryData => {
       if(!categoryData){
         res.status(404).json({ message: 'no category found with that id'});
@@ -90,8 +96,11 @@ router.delete('/:id', (req, res) => {
       }
       res.json(categoryData);
     })
-    .catch(c => {console.log(c); res.status(500).json(c)})
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
   });
-});
+
 
 module.exports = router;
