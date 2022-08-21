@@ -29,6 +29,5 @@ Video Link: https://drive.google.com/file/d/12cV1eDrBq6FJLFGGUH4XCeLbhlATg1ap/vi
 [![License](https://img.shields.io/badge/License-Sequelize-green.svg)](https://opensource.org/licenses/Sequelize)
 [![License](https://img.shields.io/badge/License-mysql12-blue.svg)](https://opensource.org/licenses/mysql12)
 [![License](https://img.shields.io/badge/License-dotenv-blue.svg)](https://opensource.org/licenses/dotenv)
-[![License](https://img.shields.io/badge/License-bcrypt-red.svg)](https://opensource.org/licenses/bcrypt)
 [![License](https://img.shields.io/badge/License-nodemon-green.svg)](https://opensource.org/licenses/nodemon)
 
